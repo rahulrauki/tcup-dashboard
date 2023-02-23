@@ -19,7 +19,8 @@
       "MAPS_MODE" : "place | view | directions | streetview | search"
     },
     "MAPS_API_KEY" : "AIzaSyAjVaCRfs4hmj23M_uZYfMYRGn4n7RzwGw",
-    "MAP_MODE" : "directions"
+    "MAP_MODE" : "directions",
+    "test" : "ds"
   }
   
 }
