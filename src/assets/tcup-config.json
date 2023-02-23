@@ -1,0 +1,25 @@
+{
+  "pagenames" : [
+    {
+      "name" : "Maps",
+      "link" : "./map-page"
+    },
+    {
+      "name" : "Plots",
+      "link" : "./plot-page"
+    },
+    {
+      "name" : "Processed Data",
+      "link" : "./data-page"
+    }
+  ],
+  "map_page":{
+    "comments" : {
+      "MAPS_API_KEY" : "Should be generated using GCP console, CANNOT be re-used",
+      "MAPS_MODE" : "place | view | directions | streetview | search"
+    },
+    "MAPS_API_KEY" : "AIzaSyAjVaCRfs4hmj23M_uZYfMYRGn4n7RzwGw",
+    "MAP_MODE" : "directions"
+  }
+  
+}

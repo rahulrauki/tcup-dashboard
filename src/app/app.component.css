@@ -1,0 +1,26 @@
+.main-2 {
+  background: #ccdfef
+  
+}
+.main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  min-width: 90vw;
+  height: 90vh;
+}
+.box {
+  border: solid 2px #c2185b;
+  border-radius: 5px;
+  background: white;
+}
+nav {
+  margin-left: 5%;
+  margin-right: 69%;
+  border: solid 2px #c2185b;
+  border-bottom: 0px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  
+}

@@ -1,0 +1,20 @@
+table {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.table {
+  border: solid 2px #c2185b;
+  border-radius: 5px;
+}
+
+.table, table, th, td, tr {
+  background-color: #ffffff;
+  color: black;
+}
+
+.paginator {
+  border-radius: 5px;
+  
+  ;
+}
