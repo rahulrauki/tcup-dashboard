@@ -20,8 +20,8 @@ export class MapPageComponent {
   displayMap : boolean = false;
 
   populateMapData() : void {
-    this.mapsApiKey = config.map_page.MAPS_API_KEY;
-    this.mapsMode = config.map_page.MAP_MODE;
+    this.mapsApiKey = config.map_page?.MAPS_API_KEY;
+    this.mapsMode = config.map_page?.MAP_MODE;
     this.mapsParams = "origin=13.08524048292034, 80.20243447444862&destination=12.991913825175219, 80.24711914337479";
     this.mapsEmbedUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.google.com/maps/embed/v1/${this.mapsMode}?key=${this.mapsApiKey}&${this.mapsParams}`);
     this.displayMap = true;
