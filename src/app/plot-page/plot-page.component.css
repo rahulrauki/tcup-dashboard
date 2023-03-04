@@ -4,5 +4,21 @@
 }
 
 label {
-  font-size: large;
+  font-size: 150%;
+  width: 100%;
+  padding-top: 7px
+}
+
+.dropdown-item {
+  font-size: 110%;
+}
+
+.dropdown {
+  width: 100%;
+}
+
+.sel {
+  width: 160%;
+  font-size: 110%;
+
 }

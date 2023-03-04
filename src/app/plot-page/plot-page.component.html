@@ -3,9 +3,30 @@
   <plotly-plot class="column is-9" [data]="data" [layout]="layout"></plotly-plot>
   <div class="column control-panel p-3 ">
 
-    <div class="select is-info dropdown">
+    <div class="select is-info dropdown mb-2">
       <label for="plottype">Plot type: </label>
-      <select name="plottype" id="plottype" class="ml-3" [(ngModel)]="plotType" (change)="log()">
+      <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="plotType" (change)="log()">
+        <option *ngFor="let type of traceTypes" class="dropdown-item" [value]="type">{{type}}</option>
+      </select>
+    </div>
+
+    <div class="select is-info dropdown mb-2">
+      <label for="plottype">Plot mode: </label>
+      <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="modeType" (change)="log()">
+        <option *ngFor="let type of scatterModes" class="dropdown-item" [value]="type">{{type}}</option>
+      </select>
+    </div>
+
+    <div class="select is-info dropdown mb-2">
+      <label for="plottype">X Axis : </label>
+      <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="modeType" (change)="log()">
+        <option *ngFor="let type of traceTypes" class="dropdown-item" [value]="type">{{type}}</option>
+      </select>
+    </div>
+
+    <div class="select is-info dropdown">
+      <label for="plottype">Y Axis :  </label>
+      <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="plotType" (change)="log()">
         <option *ngFor="let type of traceTypes" class="dropdown-item" [value]="type">{{type}}</option>
       </select>
     </div>
