@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ApiServiceService } from '../api-service.service';
 
 
 @Component({
@@ -7,11 +9,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./plot-page.component.css']
 })
 export class PlotPageComponent {
+
+  constructor( private apiService : ApiServiceService ) {}
   
   //Used attributes
-  
 
-  trace1 = {
+  apiPlotData! : any;
+  plotType: string = 'scatter';
+  modeType: string = 'lines';
+  traceTypes : string[] = ['scatter', 'bar'];
+  scatterModes : string[] = ['markers', 'lines', 'lines+markers'];
+
+  log = () : void => {
+    console.log(this.plotType);
+  }
+
+  trace1 : TraceData = {
     x: [1, 2, 3, 4],
     y: [10, 15, 13, 17],
     type: 'scatter'
@@ -25,5 +38,21 @@ export class PlotPageComponent {
   
   data = [this.trace1, this.trace2];
   
-  layout = {width: 320, height: 240, title: 'A Fancy Plot'}
+  layout = {width: 900, height: 526, title: 'A Fancy Plot'}
+
+  getPlotData() : void {
+    this.apiService.getPlotData()
+    .subscribe(plotData => {
+      if (plotData.status == 200) {
+        this.apiPlotData = plotData.data;
+      }
+    });
+  }
+}
+
+interface TraceData {
+  x: number[];
+  y: number[];
+  type: string;
+  mode?: string; 
 }

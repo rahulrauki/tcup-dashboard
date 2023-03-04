@@ -1,2 +1,18 @@
-<p>plot-page works!</p>
-<plotly-plot [data]="data" [layout]="layout"></plotly-plot>
+<section class="columns">
+
+  <plotly-plot class="column is-9" [data]="data" [layout]="layout"></plotly-plot>
+  <div class="column control-panel p-3 ">
+
+    <div class="select is-info dropdown">
+      <label for="plottype">Plot type: </label>
+      <select name="plottype" id="plottype" class="ml-3" [(ngModel)]="plotType" (change)="log()">
+        <option *ngFor="let type of traceTypes" class="dropdown-item" [value]="type">{{type}}</option>
+      </select>
+    </div>
+    
+    <!-- <button class="button is-12 is-info "  >Fetch latest</button>
+    <button class="button is-12 is-info ml-3 "  >Fetch latest</button> -->
+  </div>
+
+</section>
+

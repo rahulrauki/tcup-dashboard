@@ -1,0 +1,63 @@
+.main {
+  min-width: 100%;
+  height: 70vh;
+}
+.cont {
+  padding-left: 10%;
+  padding-right: 10%;
+  
+}
+.headings {
+  padding-top: 5%;
+  text-align: center;
+  color: #c2185b;;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 450%;
+}
+
+.map {
+  background-image: url("../../assets/images/map.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.plot {
+  background-image: url("../../assets/images/plot.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.data {
+  background-image: url("../../assets/images/data.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.is-child {
+  color: #c2185b;;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  height: 350%;
+}
+
+.is-parent:hover {
+  transform: scale(1.05,1.05);
+  transition: transform 0.15s;
+}
+
+article:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.is-parent {
+  position: relative;
+}
+
+.inn {
+  position: absolute;
+  top : -12%;
+  left : 25%;;
+  font-size: 200%;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

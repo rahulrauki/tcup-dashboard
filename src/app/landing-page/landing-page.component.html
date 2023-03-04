@@ -1,1 +1,30 @@
-<p>landing-page works!</p>
+<div class="main">
+
+  <div class="headings">
+    <p class="" >Welcome to TCUP Dashboard</p>
+  </div>
+  <br><br><br><br>
+  <div class="tile is-ancestor cont" routerLink="/map-page" routerLinkActive="active" ariaCurrentWhenActive="page">
+    <div class="tile is-parent ">
+      <p class="inn">Real-time Map</p>
+      <article class="tile is-child box map">
+        <p class="subtitle"></p>
+      </article>
+    </div>
+    <div class="tile is-parent " routerLink="/plot-page" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <p class="inn">Custom Plot</p>
+      <article class="tile is-child box plot">
+        <p class="subtitle"></p>
+      </article>
+    </div>
+    <div class="tile is-parent " routerLink="/data-page" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <p class="inn">Processed Data</p>
+      <article class="tile is-child box data">
+        <p class="subtitle"></p>
+        <div class="content">
+          <p></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
