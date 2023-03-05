@@ -6,6 +6,15 @@ table {
 .table {
   border: solid 2px #c2185b;
   border-radius: 5px;
+  min-height: 300px;
+  max-height: 500px;
+  max-width: 100%;
+  overflow: auto;
+  /* overflow-x: auto; */
+}
+
+.th {
+  min-width: 200%;
 }
 
 .table, table, th, td, tr {
@@ -15,6 +24,9 @@ table {
 
 .paginator {
   border-radius: 5px;
+}
+
+.example-table-container {
+  position: relative;
   
-  ;
 }

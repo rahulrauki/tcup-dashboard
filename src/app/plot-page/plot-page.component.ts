@@ -15,21 +15,37 @@ export class PlotPageComponent {
   //Used attributes
 
   apiPlotData! : any;
+  width : number = 900;
+  height : number = 526;
+  isLoading : boolean = false;
+  isInsightLoading : boolean = false;
+  showInsights : boolean = true;
+  insightsData! : string;
+  title : string = "Plot"; 
   plotType: string = 'scatter';
   modeType: string = 'lines';
   traceTypes : string[] = ['scatter', 'bar'];
   scatterModes : string[] = ['markers', 'lines', 'lines+markers'];
 
+  //Axes data
+  xAxisOptions! : string[];
+  yAxisOptions! : string[];
+
+  xAxisUserSelection! : string;
+  yAxisUserSelection! : string;
+
+  xAxisData! : number[] ;
+  yAxisData! : number[] ;
+
   log = () : void => {
     console.log(this.plotType);
   }
 
-  trace1 = {
-    // x: [1, 2, 3, 4],
-    x: [],
-    // y: [10, 15, 13, 17],
-    y: [],
-    type: 'scatter'
+  traceData : TraceData = {
+    x: this.xAxisData,
+    y: this.yAxisData,
+    type: this.plotType,
+    mode : this.modeType
   };
   
   trace2 : TraceData  = {
@@ -39,11 +55,23 @@ export class PlotPageComponent {
   };
   
   // data = [this.trace1, this.trace2];
-  data = [this.trace1];
+  data = [this.traceData];
   
-  layout = {width: 900, height: 526, title: 'A Fancy Plot'}
+  layout = {
+    width: this.width, 
+    height: this.height, 
+    title: this.title
+  };
+
+  setData() : void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
+  }
 
   getPlotData() : void {
+    this.isLoading = true;
     this.apiService.getPlotData()
     .subscribe(plotData => {
       if (plotData.status == 200) {
@@ -51,9 +79,28 @@ export class PlotPageComponent {
       }
     });
   }
+
+  getInsights() : void {
+    this.isInsightLoading = true;
+    this.apiService.getInsights()
+    .subscribe( insightData => {
+      
+    });
+  }
+
+  resetPlot() : void {
+    this.xAxisData = [];
+    this.yAxisData = [];
+    this.title = "Plot";
+  }
+
+  closeInsights() : void {
+    this.showInsights = false;
+  }
+
 }
 
-interface TraceData {
+export interface TraceData {
   x: number[];
   y: number[];
   type: string;

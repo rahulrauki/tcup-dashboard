@@ -5,8 +5,7 @@
   </iframe>
 
   <div class="column control-panel p-3 ">
-      <button class="button is-12 is-info " (click)="fetchLatestMap()" >Fetch latest</button>
-      <button class="button is-12 is-info ml-3 " (click)="fetchLatestMap()" >Fetch latest</button>
+      <button class="button is-12 is-info " (click)="test()" [ngClass]="isLoading ? 'is-loading' : null" >Fetch latest</button>
   </div>
 
 </div>

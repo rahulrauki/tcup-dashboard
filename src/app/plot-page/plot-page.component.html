@@ -3,6 +3,11 @@
   <plotly-plot class="column is-9" [data]="data" [layout]="layout"></plotly-plot>
   <div class="column control-panel p-3 ">
 
+    <div class="gen-button">
+      <button class="is-info button mb-1 " (click)="setData()" [ngClass]="isLoading ? 'is-loading' : null">Fetch lastest
+        data</button>
+    </div>
+
     <div class="select is-info dropdown mb-2">
       <label for="plottype">Plot type: </label>
       <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="plotType" (change)="log()">
@@ -11,29 +16,47 @@
     </div>
 
     <div class="select is-info dropdown mb-2">
-      <label for="plottype">Plot mode: </label>
-      <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="modeType" (change)="log()">
+      <label for="modetype">Plot mode: </label>
+      <select name="modetype" id="modetype" width="100" class="sel" [(ngModel)]="modeType" (change)="log()">
         <option *ngFor="let type of scatterModes" class="dropdown-item" [value]="type">{{type}}</option>
       </select>
     </div>
 
     <div class="select is-info dropdown mb-2">
-      <label for="plottype">X Axis : </label>
-      <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="modeType" (change)="log()">
-        <option *ngFor="let type of traceTypes" class="dropdown-item" [value]="type">{{type}}</option>
+      <label for="xAxis">X Axis : </label>
+      <select name="xAxis" id="xAxis" width="100" class="sel" [(ngModel)]="xAxisUserSelection" (change)="log()">
+        <option *ngFor="let type of xAxisOptions" class="dropdown-item" [value]="type">{{type}}</option>
       </select>
     </div>
 
-    <div class="select is-info dropdown">
-      <label for="plottype">Y Axis :  </label>
-      <select name="plottype" id="plottype" width="100" class="sel" [(ngModel)]="plotType" (change)="log()">
-        <option *ngFor="let type of traceTypes" class="dropdown-item" [value]="type">{{type}}</option>
+    <div class="select is-info dropdown mb-4">
+      <label for="yAxis">Y Axis : </label>
+      <select name="yAxis" id="yAxis" width="100" class="sel" [(ngModel)]="yAxisUserSelection" (change)="log()">
+        <option *ngFor="let type of yAxisOptions" class="dropdown-item" [value]="type">{{type}}</option>
       </select>
     </div>
-    
-    <!-- <button class="button is-12 is-info "  >Fetch latest</button>
-    <button class="button is-12 is-info ml-3 "  >Fetch latest</button> -->
+
+    <div class="gen-button p-0 m-0 ">
+      <button class="is-info button mr-3 ">Generate plot</button>
+      <button class="is-danger button ">Reset plot</button>
+    </div>
+
+    <article class="message is-warning mt-2" *ngIf="showInsights">
+      <div class="message-header p-0 ">
+        <!-- <p class="pl-2 pt-2 pr-0 mr-0">Insights</p> -->
+        <button class="is-warning button is-light m-1 ml-0" aria-label="delete" (click)="getInsights() "
+          [ngClass]="isInsightLoading ? 'is-loading' : null">Get Insights</button>
+        <button class="delete mr-3" aria-label="delete" (click)="closeInsights()"></button>
+      </div>
+      <div class="message-body">
+        <!-- <p class="data">{{insightsData}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium sunt ipsam molestiae
+          odio, obcaecati quidem doloremque quo, facere, deserunt nisi aliquam cum. Aut doloribus quidem possimus
+          reiciendis hic veritatis at? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut velit itaque unde at
+          officiis vitae obcaecati hic. Doloribus, possimus maxime, vel facere numquam perspiciatis minus repudiandae
+          veniam, odit est nulla!</p> -->
+      </div>
+    </article>
+
   </div>
 
 </section>
-

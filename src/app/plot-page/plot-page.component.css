@@ -17,8 +17,20 @@ label {
   width: 100%;
 }
 
+.gen-button {
+  width: 100%;
+}
+
 .sel {
   width: 160%;
   font-size: 110%;
+}
 
+.message {
+  max-height: 300px;
+}
+
+.message-body {
+  overflow: auto;
+  height: 250px;
 }
