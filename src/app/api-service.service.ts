@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -19,27 +19,34 @@ export class ApiServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public getMapData() : Observable<any> {
-    return this.http.get<any>(`${this.mapApiUrl}`);
+  public getMapData(availDataLen : number) : Observable<any> {
+    let params = new HttpParams().set("index", availDataLen);
+    return this.http.get<any>(`${this.mapApiUrl}`, { params });
   }
 
-  public getPlotData() : Observable<any> {
-    return this.http.get<any>(`${this.plotApiUrl}`);
+  public getPlotData(availDataLen : number) : Observable<any> {
+    let params = new HttpParams().set("index", availDataLen);
+    return this.http.get<any>(`${this.plotApiUrl}`, { params });
   }
 
-  public getData() : Observable<any> {
-    return this.http.get<any>(`${this.dataApiUrl}`);
+  public getData(availDataLen : number) : Observable<any> {
+    let params = new HttpParams().set("index", availDataLen);
+    return this.http.get<any>(`${this.dataApiUrl}`, { params });
   }
 
-  public getReport() : Observable<any> {
-    return this.http.get<any>(`${this.reportApiUrl}`);
+  public getReport() : Observable<Blob> {
+    return this.http.get(`${this.reportApiUrl}`, { responseType: 'blob' });
   }
 
-  public getInsights() : Observable<any> {
-    return this.http.get<any>(`${this.insightsApiUrl}`);
+  public getInsights(requestData : Object) : Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<any>(`${this.insightsApiUrl}`, requestData, { headers });
   }
   
-  public getExportData() : Observable<any> {
-    return this.http.get<any>(`${this.exportApiUrl}`);
+  public getExportData(availDataLen : number) : Observable<Blob> {
+    let params = new HttpParams().set("index", availDataLen);
+    return this.http.get(`${this.exportApiUrl}`, { params, responseType: 'blob' });
   }
 }

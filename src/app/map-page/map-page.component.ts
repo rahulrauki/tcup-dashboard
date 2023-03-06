@@ -21,7 +21,7 @@ export class MapPageComponent implements OnInit {
   displayMap : boolean = false;
   isLoading : boolean = false;
 
-  apiFetchData! : number[][];
+  apiFetchData : number[][] = [];
 
   populateMapData() : void {
     // this.mapsParams = "origin=13.104712, 80.2713&destination=13.104712, 80.2713";
@@ -59,10 +59,10 @@ export class MapPageComponent implements OnInit {
  
   fetchLatestMap() : void {
       this.isLoading = true;
-      this.apiService.getMapData()
+      this.apiService.getMapData(this.apiFetchData.length)
       .subscribe( mapData => {
         if (mapData.status == 200) {
-          this.apiFetchData = mapData.data; // [[lat, long], [lat, long] ... ]
+          this.apiFetchData.push(...mapData.data); // [[lat, long], [lat, long] ... ]
           this.mapsParamConstructor();
           this.populateMapData()
           this.isLoading = false;

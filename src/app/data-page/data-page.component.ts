@@ -26,31 +26,8 @@ export class DataPageComponent implements AfterViewInit {
   columns : ColumnData[] = [];
   displayedColumns! : string[];
   dataSource : any;
-  apiFetchData : any;
+  apiFetchData : any[] = [];
   background : ThemePalette = 'primary';
-
-  // columns : ColumnData[] = [
-  //   {
-  //     columnDef: 'position',
-  //     header: 'No.',
-  //     cell: (element: PeriodicElement) => `${element.position}`,
-  //   },
-  //   {
-  //     columnDef: 'name',
-  //     header: 'Name',
-  //     cell: (element: PeriodicElement) => `${element.name}`,
-  //   },
-  //   {
-  //     columnDef: 'weight',
-  //     header: 'Weight',
-  //     cell: (element: PeriodicElement) => `${element.weight}`,
-  //   },
-  //   {
-  //     columnDef: 'symbol',
-  //     header: 'Symbol',
-  //     cell: (element: PeriodicElement) => `${element.symbol}`,
-  //   },
-  // ];
 
   // @ViewChild(MatPaginator)
   // paginator!: MatPaginator;
@@ -58,13 +35,17 @@ export class DataPageComponent implements AfterViewInit {
 
   fillColumnData() : void {
     this.isFetchLoading = true;
-    let sample = ELEMENT_DATA[0];
-    this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+    // let da = ELEMENT_DATA.length;
+    // let sample = ELEMENT_DATA[da - 1];
+    let lengthFetchData = this.apiFetchData.length;
+    let sample = this.apiFetchData[lengthFetchData - 1]; // Accessing last data for relevant structure
+    // this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+    this.dataSource = new MatTableDataSource<any>(this.apiFetchData);
     for (let attr of Object.keys(sample)) {
       let currColumnData : ColumnData = {
         columnDef : attr,
         header : attr.charAt(0).toUpperCase() + attr.slice(1),
-        cell : (element : any) => `${element[attr]}`
+        cell : (element : any) => element[attr] ? `${element[attr]}` : "Empty"
       }
       this.columns.push(currColumnData);
     }
@@ -76,12 +57,41 @@ export class DataPageComponent implements AfterViewInit {
 
   getLatestData() : void{
     this.isFetchLoading = true;
-    this.apiService.getData()
-    .subscribe(data => {
-      if (data.status == 200){
-
+    this.apiService.getData(this.apiFetchData.length)
+    .subscribe(fetchData => {
+      if (fetchData.status == 200){
+        this.apiFetchData.push(...fetchData.data);
+        this.fillColumnData();
+        this.isFetchLoading = false;
       }
     });
+  }
+
+  getExportData() : void {
+    this.isExportLoading = true;
+    this.apiService.getExportData(this.apiFetchData.length)
+    .subscribe(exportData => {
+      //Add code to download Excel Data
+      const blob = new Blob([exportData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'export_data.xlsx';
+      link.click();
+      this.isExportLoading = false;
+    })
+  }
+
+  getReport() : void {
+    this.isReportLoading = true;
+    this.apiService.getReport()
+    .subscribe(report => {
+      // Add code to display result html
+      const file = new Blob([report], { type: 'text/html' });
+      const fileUrl = URL.createObjectURL(file);
+      window.open(fileUrl, '_blank');
+      this.isReportLoading = false;
+    })
   }
 
   closeInsights() : void {
@@ -109,15 +119,15 @@ export interface ColumnData {
 export type Cell = (element : any) => string;
 
 const ELEMENT_DATA: any[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
+  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf"},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
   {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},
   {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg', data : 1, random : 3, test: 4, temp: 34, speed:34, avg:34, rate:53, twrwerwewre:35, sdfrerysfdgey:434, tregrryery:53, jgidsiti: "radf", dggawef:"asdf", ddsfgsdfgdsfgdfgfsdfgsfgdfg: 234, asgagteaasegawewaefae: 345, dgahaehfhsdhtsrthsdhsrydsfh:65},

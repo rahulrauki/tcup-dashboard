@@ -14,7 +14,7 @@ export class PlotPageComponent {
   
   //Used attributes
 
-  apiPlotData! : any;
+  apiPlotData : any[] = [];
   width : number = 900;
   height : number = 526;
   isLoading : boolean = false;
@@ -72,17 +72,24 @@ export class PlotPageComponent {
 
   getPlotData() : void {
     this.isLoading = true;
-    this.apiService.getPlotData()
+    this.apiService.getPlotData(this.apiPlotData.length)
     .subscribe(plotData => {
       if (plotData.status == 200) {
-        this.apiPlotData = plotData.data;
+        this.apiPlotData.push(...plotData.data);
       }
     });
   }
 
   getInsights() : void {
     this.isInsightLoading = true;
-    this.apiService.getInsights()
+    let request : any = {};
+    request[this.xAxisUserSelection] = this.xAxisData;
+    request[this.yAxisUserSelection] = this.yAxisData;
+
+    let requestData = {
+      "data" : request
+    };
+    this.apiService.getInsights(requestData)
     .subscribe( insightData => {
       
     });
@@ -97,6 +104,10 @@ export class PlotPageComponent {
   closeInsights() : void {
     this.showInsights = false;
   }
+
+}
+
+export interface InsightExportData {
 
 }
 
