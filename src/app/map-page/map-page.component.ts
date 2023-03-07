@@ -19,7 +19,10 @@ export class MapPageComponent implements OnInit {
   mapsParams : string = "origin=34.048612519412444, -118.2483486337169&destination=34.048612519412444, -118.2483486337169"; // setting default param to prevent error
   mapsEmbedUrl! : SafeResourceUrl;
   displayMap : boolean = false;
+  isTable : boolean = false;
   isLoading : boolean = false;
+
+  cords = CO_ORDS;
 
   apiFetchData : number[][] = [];
 
@@ -61,12 +64,15 @@ export class MapPageComponent implements OnInit {
       this.isLoading = true;
       this.apiService.getMapData(this.apiFetchData.length)
       .subscribe( mapData => {
+        console.log(mapData);
         if (mapData.status == 200) {
           this.apiFetchData.push(...mapData.data); // [[lat, long], [lat, long] ... ]
+          console.log(this.apiFetchData);
           this.mapsParamConstructor();
+          console.log(this.mapsParams);
           this.populateMapData()
-          this.isLoading = false;
         }
+        this.isLoading = false;
       });
   }
 
@@ -76,6 +82,10 @@ export class MapPageComponent implements OnInit {
     this.mapsParamConstructor();
     this.populateMapData()
     this.isLoading = false;
+  }
+
+  showTable() : void {
+    this.isTable = true;
   }
 
 

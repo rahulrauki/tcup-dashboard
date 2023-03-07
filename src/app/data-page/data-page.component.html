@@ -1,13 +1,13 @@
 
 <div class="box columns p-0">
   <div class="column is-centered">
-    <button class="button is-info" [ngClass]="isFetchLoading ? 'is-loading' : null" (click)="fillColumnData()">Fetch Data</button>
+    <button class="button is-info" [ngClass]="isFetchLoading ? 'is-loading' : null" (click)="getLatestData()">Fetch Data</button>
   </div>
   <div class="column">
-    <button class="button is-info" [ngClass]="isExportLoading ? 'is-loading' : null">Export Data</button>
+    <button class="button is-info" [ngClass]="isExportLoading ? 'is-loading' : null" (click)="getExportData()">Export Data</button>
   </div>
   <div class="column">
-    <button class="button is-info" [ngClass]="isReportLoading ? 'is-loading' : null">Generate Report</button>
+    <button class="button is-info" [ngClass]="isReportLoading ? 'is-loading' : null" (click)="getReport()">Generate Report</button>
   </div>
 </div>
 
@@ -15,7 +15,7 @@
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
       <th mat-header-cell *matHeaderCellDef class="th">
-        {{column.header}}
+        {{column.header | titlecase}}
       </th>
       <td mat-cell *matCellDef="let row" class="th">
         {{column.cell(row)}}

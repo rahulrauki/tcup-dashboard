@@ -44,8 +44,8 @@ export class DataPageComponent implements AfterViewInit {
     for (let attr of Object.keys(sample)) {
       let currColumnData : ColumnData = {
         columnDef : attr,
-        header : attr.charAt(0).toUpperCase() + attr.slice(1),
-        cell : (element : any) => element[attr] ? `${element[attr]}` : "Empty"
+        header : attr,
+        cell : (element : any) => element[attr] ? `${element[attr]}` : "NIL"
       }
       this.columns.push(currColumnData);
     }
@@ -59,11 +59,13 @@ export class DataPageComponent implements AfterViewInit {
     this.isFetchLoading = true;
     this.apiService.getData(this.apiFetchData.length)
     .subscribe(fetchData => {
+      console.log(fetchData);
       if (fetchData.status == 200){
         this.apiFetchData.push(...fetchData.data);
+        console.log(this.apiFetchData);
         this.fillColumnData();
-        this.isFetchLoading = false;
       }
+      this.isFetchLoading = false;
     });
   }
 
@@ -71,6 +73,7 @@ export class DataPageComponent implements AfterViewInit {
     this.isExportLoading = true;
     this.apiService.getExportData(this.apiFetchData.length)
     .subscribe(exportData => {
+      console.log(exportData);
       //Add code to download Excel Data
       const blob = new Blob([exportData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const url = window.URL.createObjectURL(blob);
@@ -86,6 +89,7 @@ export class DataPageComponent implements AfterViewInit {
     this.isReportLoading = true;
     this.apiService.getReport()
     .subscribe(report => {
+      console.log(report);
       // Add code to display result html
       const file = new Blob([report], { type: 'text/html' });
       const fileUrl = URL.createObjectURL(file);

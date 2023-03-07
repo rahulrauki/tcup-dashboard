@@ -5,7 +5,26 @@
   </iframe>
 
   <div class="column control-panel p-3 ">
-      <button class="button is-12 is-info " (click)="test()" [ngClass]="isLoading ? 'is-loading' : null" >Fetch latest</button>
+      <button class="button is-12 is-info mr-3 " (click)="fetchLatestMap()" [ngClass]="isLoading ? 'is-loading' : null" >Fetch latest</button>
+      <button class="button is-12 is-info mb-3" (click)="showTable()" >Show Coordinates</button>
+      <div *ngIf="isTable" class="table-container">
+        <table class="table is-bordered is-striped is-narrow is-hoverable ">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pair of apiFetchData; let i=index">
+              <td>{{i + 1}}</td>
+              <td>{{pair[0]}}</td>
+              <td>{{pair[1]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   </div>
 
 </div>

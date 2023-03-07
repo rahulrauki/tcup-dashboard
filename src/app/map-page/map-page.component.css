@@ -6,3 +6,9 @@ iframe {
   border: solid 2px #c2185b;
   border-radius: 5px;
 }
+
+.table-container {
+  height: 460px;
+  width: 305px;
+  overflow: auto
+}
