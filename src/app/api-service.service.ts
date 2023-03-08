@@ -15,20 +15,21 @@ export class ApiServiceService {
   private reportApiUrl : string = config.data_page?.report_url;
   private insightsApiUrl : string = config.data_page?.insight_url;
   private exportApiUrl : string = config.data_page?.export_url;
+  private addProcessApiUrl : string = config.add_process?.api_url;
 
   constructor(private http: HttpClient) { }
 
-  public getMapData(availDataLen : number) : Observable<any> {
+  public getMapData(availDataLen : number = 0) : Observable<any> {
     let params = new HttpParams().set("index", availDataLen);
     return this.http.get<any>(`${this.mapApiUrl}`, { params });
   }
 
-  public getPlotData(availDataLen : number) : Observable<any> {
+  public getPlotData(availDataLen : number = 0) : Observable<any> {
     let params = new HttpParams().set("index", availDataLen);
     return this.http.get<any>(`${this.plotApiUrl}`, { params });
   }
 
-  public getData(availDataLen : number) : Observable<any> {
+  public getData(availDataLen : number = 0) : Observable<any> {
     let params = new HttpParams().set("index", availDataLen);
     return this.http.get<any>(`${this.dataApiUrl}`, { params });
   }
@@ -48,4 +49,12 @@ export class ApiServiceService {
     let params = new HttpParams().set("index", availDataLen);
     return this.http.get(`${this.exportApiUrl}`, { params, responseType: 'blob' });
   }
+
+  public addProcess(requestData : Object) : Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<any>(`${this.addProcessApiUrl}`, requestData, { headers });
+  }
+
 }

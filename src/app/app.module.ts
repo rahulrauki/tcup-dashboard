@@ -8,6 +8,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MapPageComponent } from './map-page/map-page.component';
 import { DataPageComponent } from './data-page/data-page.component';
 import { PlotPageComponent } from './plot-page/plot-page.component';
+import { AddProcessComponent } from './add-process/add-process.component';
 // NgModules imports
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +26,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
     LandingPageComponent,
     MapPageComponent,
     DataPageComponent,
-    PlotPageComponent
+    PlotPageComponent,
+    AddProcessComponent
   ],
   imports: [
     BrowserModule,

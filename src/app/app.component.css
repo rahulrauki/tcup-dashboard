@@ -14,13 +14,20 @@
   border: solid 2px #c2185b;
   border-radius: 5px;
   background: white;
+  min-height: 550px;
 }
 nav {
   margin-left: 5%;
-  margin-right: 69%;
+  margin-right: 58.5%;
   border: solid 2px #c2185b;
   border-bottom: 0px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  
+}
+
+.client-status {
+  position: absolute;
+  font-size: 17px;
+  left : 1100px;
+  top : 18px;
 }

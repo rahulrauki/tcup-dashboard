@@ -1,0 +1,33 @@
+.box {
+  min-height:230px;
+}
+
+label {
+  font-size: 150%;
+  width: 100%;
+  padding-top: 7px
+}
+
+#variable {
+  min-width: 250px;
+  min-height: 40px;
+}
+
+.button-box {
+  border: 1px solid #c2185b;
+  border-radius: 5px;
+  min-height: 200px;
+}
+
+.is-light {
+  font-size: 200%;
+}
+
+.equation-text {
+  font-family: monospace;
+  font-size: 25px;
+}
+
+.clear {
+  margin-right: 50px;
+}

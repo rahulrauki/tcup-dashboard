@@ -1,0 +1,54 @@
+<div>
+
+  <div class="notification " [ngClass]="isSuccess ? 'is-success' : 'is-danger'" *ngIf="showNotification" >
+    <button class="delete" (click)="clearNotification()" ></button>
+    {{notification | uppercase}}
+  </div> 
+
+  <section class="input-ops columns m-5 ">
+    <div class="column variable-names box mb-0 ">
+      <div class="gen-button">
+        <button class="is-info button mb-5" [ngClass]="isLoading ? 'is-loading' : null" (click)="fetchNewData()" >Fetch lastest data</button> <br>
+        <div class="select is-info dropdown ">
+          <label for="variable">Variables :</label>
+          <select name="variable" id="variable" class="sel ml-2" [(ngModel)]="selectedVariable">
+            <option *ngFor="let type of variableOptions" class="dropdown-item" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <button class="is-info button ml-5" (click)="addVaribleToEquation()" >Add to Equation</button>
+      </div>
+    </div>
+    <div class="column operations-available ml-5 box">
+      <div class="button-box p-3">
+        <label for="" class="mb-5">Available Operations</label><br><br>
+        <div class="buttons mt-3 ml-2 ">
+          <button class="button is-info is-light" (click)="addPlus()">+</button>
+          <button class="button is-info is-light" (click)="addMinus()">-</button>
+          <button class="button is-info is-light" (click)="addMultiply()">*</button>
+          <button class="button is-info is-light" (click)="addDivide()">/</button>
+          <button class="button is-info is-light" (click)="addPow()">**</button>
+          <button class="button is-info is-light" (click)="addLeftParanthesis()">(</button>
+          <button class="button is-info is-light" (click)="addRightParanthesis()">)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="output-ops p-5">
+    <div class="equation box">
+      <div class="columns mt-5">
+        <div class="column is-3 variable-name">
+          <label for="variablename">New variable name</label>
+            <input type="text" name="variablename" class="input is-info" id="variablename" [(ngModel)]="newVariableName" placeholder="Enter new variable name">
+        </div>
+        <div class="column is-9 equation-bar">
+          <label for="equation">EQUATION</label>
+            <input type="text" name="equation" readonly class="input equation-text is-info mb-2" id="equation" [(ngModel)]="equationString" placeholder="Equation appears here">
+            <button class="button clear is-danger" (click)="clearEquation()">Clear</button>
+            <button class="button is-info" [ngClass]="isSubmitLoading ? 'is-loading' : null" (click)="addProcess()" >Create new process</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
