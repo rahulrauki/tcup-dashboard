@@ -5,7 +5,7 @@
       <a mat-tab-link *ngFor="let link of pageNames" (click)="activeLink = link.link" [routerLink]="link.link"
         [active]="activeLink == link.link"> {{link.name}}</a>
     </nav>
-    <span class="client-status" ><b>Client Status: </b><span >🟢</span>Online</span>
+    <span class="client-status" ><b>Client Status: </b><span *ngIf="isClientOn; else offline">🟢 Online</span> <ng-template #offline>🔴 Offline</ng-template> </span>
     <mat-tab-nav-panel #tabPanel class="box"><router-outlet></router-outlet></mat-tab-nav-panel>
     
   </div>
