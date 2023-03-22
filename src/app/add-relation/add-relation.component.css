@@ -28,6 +28,12 @@ label {
   font-size: 15px;
 }
 
+.new-relation {
+  font-family: monospace;
+  font-size: 15px;
+  width : 300px;
+}
+
 .clear {
   margin-right: 50px;
 }

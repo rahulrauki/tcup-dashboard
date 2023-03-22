@@ -28,8 +28,8 @@
     </div>
     <div class="column second-variable box ml-5">
       <label for="" class="mb-5">Operand selection :  </label><br><br>
-      <label class="opt mr-3"><input type="radio" class="radio mr-2" name="variable-option" [(ngModel)]="secondVariableOption" value="existing" >Select existing</label>
-      <label class="opt mb-3"><input type="radio" class="radio mr-2" name="variable-option" [(ngModel)]="secondVariableOption" value="new" >Set manually</label>
+      <label class="opt mr-3"><input type="radio" class="radio mr-2" name="variable-option" [(ngModel)]="secondVariableOption" value="existing" (click)="clearPreviousSelection()" >Select existing</label>
+      <label class="opt mb-3"><input type="radio" class="radio mr-2" name="variable-option" [(ngModel)]="secondVariableOption" value="new" (click)="clearPreviousSelection()" >Set manually</label>
       <br><br>
       <div *ngIf="secondVariableOption == 'existing'" class="select is-info dropdown dropdown-option">
         <label for="variable2">Variable 2:</label>
@@ -46,13 +46,15 @@
   </section>
   <section class="output-ops p-5">
     <div class="equation box">
-      <div class="columns mt-2">
+      <div class="columns">
         <div class="column is-10 variable-name">
+          <label for="">Enter relation name:</label><br>
+          <input type="text" class="input is-info new-relation mb-3" name="new-variable-name" [(ngModel)]="newVariableName" id="new-variable-name" placeholder="Enter relation name"><br>
           <label for="variablename">Message if satisfied:</label>
-          <input type="text" name="variablename" class="input is-info equation-text" id="variablename" [(ngModel)]="messageIfTrue"
-          placeholder="Message to be shown if condition is satisfied"><br><br>
+          <input type="text" name="variablename" class="input is-info equation-text mb-3" id="variablename" [(ngModel)]="messageIfTrue"
+          placeholder="Message to be shown if condition is satisfied"><br>
           <label for="equation">Message if not satisfied:</label>
-          <input type="text" name="equation" class="input equation-text is-info mb-2" id="equation"
+          <input type="text" name="equation" class="input equation-text is-info" id="equation"
             [(ngModel)]="messageIfFalse" placeholder="Message to be shown if condition is not satisfied">
         </div>
         <div class="column is-2 equation-bar"><br>

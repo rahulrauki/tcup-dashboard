@@ -34,9 +34,15 @@ export class AddRelationComponent {
     this.selectedVariable = "";
     this.selectedOperator = "";
     this.secondVariable = "";
+    this.newVariableName = "";
     this.messageIfTrue = "";
     this.messageIfFalse = "";
+    this.isSubmitLoading = false;
     this.clearNotification();
+  }
+
+  clearPreviousSelection() : void {
+    this.secondVariable = "";
   }
 
   fetchNewData() : void {
@@ -83,7 +89,8 @@ export class AddRelationComponent {
     resultData["condition"] = [
       `${this.selectedVariable} ${this.selectedOperator} ${this.secondVariable.toString()}`,
       this.messageIfTrue,
-      this.messageIfFalse
+      this.messageIfFalse,
+      this.newVariableName
     ];
     console.log(resultData);
     this.apiService.addRelation(resultData)
@@ -99,6 +106,7 @@ export class AddRelationComponent {
 }
 
 type PlotData = Record<string, any[]>;
+
 interface OperatorOptions {
   name: string,
   symbol : string
