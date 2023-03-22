@@ -1,56 +1,63 @@
 <div>
 
-  <div class="notification " [ngClass]="isSuccess ? 'is-success' : 'is-danger'" *ngIf="showNotification" >
-    <button class="delete" (click)="clearNotification()" ></button>
+  <div class="notification " [ngClass]="isSuccess ? 'is-success' : 'is-danger'" *ngIf="showNotification">
+    <button class="delete" (click)="clearNotification()"></button>
     {{notification | uppercase}}
-  </div> 
+  </div>
 
   <section class="input-ops columns m-5 ">
     <div class="column variable-names box mb-0 ">
       <div class="gen-button">
-        <button class="is-info button mb-5" [ngClass]="isLoading ? 'is-loading' : null" (click)="fetchNewData()" >Fetch lastest data</button> <br>
+        <button class="is-info button mb-5" [ngClass]="isLoading ? 'is-loading' : null" (click)="fetchNewData()">Fetch
+          lastest data</button> <br>
         <div class="select is-info dropdown ">
-          <label for="variable">Variables :</label>
+          <label for="variable">Variable 1 :</label>
           <select name="variable" id="variable" class="sel ml-2" [(ngModel)]="selectedVariable">
             <option *ngFor="let type of variableOptions" class="dropdown-item" [value]="type">{{type}}</option>
           </select>
         </div>
-        <button class="is-info button ml-5" (click)="addVaribleToEquation()" >Add to Equation</button>
       </div>
     </div>
-    <div class="column operations-available ml-5 box">
-      <div class="p-3">
-        <label for="operator" class="mb-5">Available Operations :</label><br><br>
-        <select name="operator" id="operator" [(ngModel)]="selectedOperator" >
-          <option  *ngFor="let operator of operatorOptions" [value]="operator.symbol">{{operator.name}}</option>
+    <div class="column operations-available ml-5 mb-0 box pl-5">
+      <label for="operator" class="mb-5">Available Operations :</label><br><br>
+      <br><div class="" class="select is-info dropdown" >
+        <select class="" name="operator" id="operator" [(ngModel)]="selectedOperator">
+          <option *ngFor="let operator of operatorOptions" [value]="operator.symbol">{{operator.name}}</option>
         </select>
       </div>
     </div>
-    <div class="column second-variable">
-      <div *ngIf="secondVariableOption == ''" class="select is-info dropdown dropdown-option">
+    <div class="column second-variable box ml-5">
+      <label for="" class="mb-5">Operand selection :  </label><br><br>
+      <label class="opt mr-3"><input type="radio" class="radio mr-2" name="variable-option" [(ngModel)]="secondVariableOption" value="existing" >Select existing</label>
+      <label class="opt mb-3"><input type="radio" class="radio mr-2" name="variable-option" [(ngModel)]="secondVariableOption" value="new" >Set manually</label>
+      <br><br>
+      <div *ngIf="secondVariableOption == 'existing'" class="select is-info dropdown dropdown-option">
         <label for="variable2">Variable 2:</label>
         <select name="variable2" id="variable2" class="sel ml-2" [(ngModel)]="secondVariable">
           <option *ngFor="let type of variableOptions" class="dropdown-item" [value]="type">{{type}}</option>
         </select>
       </div>
-      <div class="text-option">
+      <div *ngIf="secondVariableOption == 'new'" class="text-option">
         <label for="variable2">Value :</label>
-        <input type="text" class="input is-info" [(ngModel)]="secondVariable" placeholder="Enter the value" name="variable2" id="variable2">
+        <input type="text" class="input is-info" pattern="[0-9.]*" [(ngModel)]="secondVariable" placeholder="Enter the value"
+          name="variable2" id="variable2">
       </div>
     </div>
   </section>
   <section class="output-ops p-5">
     <div class="equation box">
-      <div class="columns mt-5">
-        <div class="column is-3 variable-name">
-          <label for="variablename">New variable name</label>
-            <input type="text" name="variablename" class="input is-info" id="variablename" [(ngModel)]="newVariableName" placeholder="Enter new variable name">
+      <div class="columns mt-2">
+        <div class="column is-10 variable-name">
+          <label for="variablename">Message if satisfied:</label>
+          <input type="text" name="variablename" class="input is-info equation-text" id="variablename" [(ngModel)]="messageIfTrue"
+          placeholder="Message to be shown if condition is satisfied"><br><br>
+          <label for="equation">Message if not satisfied:</label>
+          <input type="text" name="equation" class="input equation-text is-info mb-2" id="equation"
+            [(ngModel)]="messageIfFalse" placeholder="Message to be shown if condition is not satisfied">
         </div>
-        <div class="column is-9 equation-bar">
-          <label for="equation">EQUATION</label>
-            <input type="text" name="equation" readonly class="input equation-text is-info mb-2" id="equation" [(ngModel)]="equationString" placeholder="Equation appears here">
-            <button class="button clear is-danger" (click)="clearEquation()">Clear</button>
-            <button class="button is-info" [ngClass]="isSubmitLoading ? 'is-loading' : null" (click)="addProcess()" >Create new process</button>
+        <div class="column is-2 equation-bar"><br>
+          <button class="button is-info mb-5" [ngClass]="isSubmitLoading ? 'is-loading' : null" (click)="addRelation()">Add Relation</button>
+          <button class="button clear is-danger" (click)="clearEquation()">Clear</button>
         </div>
       </div>
     </div>

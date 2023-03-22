@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiServiceService } from '../api-service.service';
+import { ThemePalette } from '@angular/material/core';
 import config from '../../assets/tcup-config.json';
 
 @Component({
@@ -15,7 +16,6 @@ export class AddRelationComponent {
   variableOptions : string[] = [] ;
   selectedVariable! : string;
   secondVariable! : string | number;
-  equationString : string = "";
   newVariableName! : string ;
   secondVariableOption! : string;
   isLoading : boolean  =  false;
@@ -23,36 +23,20 @@ export class AddRelationComponent {
   showNotification : boolean = false;
   isSuccess : boolean = false;
   notification : string = "";
+  background : ThemePalette = "primary";
+  messageIfTrue! : string;
+  messageIfFalse! : string;
 
   operatorOptions : OperatorOptions[] = config?.relation_operator_options;
   selectedOperator! : string;
 
-  addVaribleToEquation() : void {
-    this.equationString += this.selectedVariable;
-  }
-  addPlus() :void {
-    this.equationString += "+";
-  }
-  addMinus() :void {
-    this.equationString += "-";
-  }
-  addMultiply() :void {
-    this.equationString += "*";
-  }
-  addDivide() :void {
-    this.equationString += "/";
-  }
-  addPow() :void {
-    this.equationString += "**";
-  }
-  addLeftParanthesis() :void { 
-    this.equationString += "(";
-  }
-  addRightParanthesis() :void {
-    this.equationString += ")";
-  }
   clearEquation() : void {
-    this.equationString = "";
+    this.selectedVariable = "";
+    this.selectedOperator = "";
+    this.secondVariable = "";
+    this.messageIfTrue = "";
+    this.messageIfFalse = "";
+    this.clearNotification();
   }
 
   fetchNewData() : void {
@@ -93,13 +77,16 @@ export class AddRelationComponent {
     this.showNotification = false;
   }
 
-  addProcess() :  void {
+  addRelation() :  void {
     this.isSubmitLoading = true;
     let resultData : any = {}
-    resultData["name"] = this.newVariableName;
-    resultData["equation"] = this.equationString;
+    resultData["condition"] = [
+      `${this.selectedVariable} ${this.selectedOperator} ${this.secondVariable.toString()}`,
+      this.messageIfTrue,
+      this.messageIfFalse
+    ];
     console.log(resultData);
-    this.apiService.addProcess(resultData)
+    this.apiService.addRelation(resultData)
     .subscribe(processData => {
       if (processData.status == 200) {
         this.isSuccess = true;

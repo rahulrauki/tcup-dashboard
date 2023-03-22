@@ -16,6 +16,7 @@ export class ApiServiceService {
   private insightsApiUrl : string = config.data_page?.insight_url;
   private exportApiUrl : string = config.data_page?.export_url;
   private addProcessApiUrl : string = config.add_process?.api_url;
+  private addRelationApiUrl : string = config.add_relation?.api_url;
   private clientStatusApiUrl : string = config.client_status_url;
 
   constructor(private http: HttpClient) { }
@@ -56,6 +57,13 @@ export class ApiServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.post<any>(`${this.addProcessApiUrl}`, requestData, { headers });
+  }
+
+  public addRelation(requestData : Object) : Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<any>(`${this.addRelationApiUrl}`, requestData, { headers });
   }
 
   public getClientStatus() : Observable<any> {

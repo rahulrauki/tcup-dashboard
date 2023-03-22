@@ -8,7 +8,7 @@ label {
   padding-top: 7px
 }
 
-#variable {
+#variable, #variable2, #operator {
   min-width: 250px;
   min-height: 40px;
 }
@@ -25,9 +25,13 @@ label {
 
 .equation-text {
   font-family: monospace;
-  font-size: 25px;
+  font-size: 15px;
 }
 
 .clear {
   margin-right: 50px;
+}
+
+.opt{
+  font-size: 15px;
 }
