@@ -5,6 +5,7 @@ import { DataPageComponent } from "./data-page/data-page.component"
 import { MapPageComponent } from "./map-page/map-page.component"
 import { PlotPageComponent } from "./plot-page/plot-page.component"
 import { AddProcessComponent } from "./add-process/add-process.component"
+import { AddRelationComponent } from "./add-relation/add-relation.component"
 
 const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent , title: "Welcome to TCUP Dashboard" },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'map-page', component: MapPageComponent, title: "Map Data" },
   { path: 'plot-page', component: PlotPageComponent, title: "Plotting" },
   { path: 'add-process', component: AddProcessComponent, title: "Add Process" },
+  { path: 'add-relation', component: AddRelationComponent, title: "Add Relation" },
   { path: '',   redirectTo: '/landing-page', pathMatch: 'full' }, // redirect to `first-component`
   { path: '**', component: LandingPageComponent },  // Wildcard route for a 404 page
 ];

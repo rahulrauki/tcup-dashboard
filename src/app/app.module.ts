@@ -15,8 +15,10 @@ import { AppComponent } from './app.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatRadioModule} from '@angular/material/radio';
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
+import { AddRelationComponent } from './add-relation/add-relation.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -27,7 +29,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
     MapPageComponent,
     DataPageComponent,
     PlotPageComponent,
-    AddProcessComponent
+    AddProcessComponent,
+    AddRelationComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
     MatPaginatorModule,
     MatTableModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
